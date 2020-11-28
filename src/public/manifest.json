@@ -1,6 +1,6 @@
 {
-  "short_name": "Beispiel",
-  "name": "Beispiel",
+  "short_name": "Song",
+  "name": "Song",
   "icons": [
     {
       "src": "./img/icon-128.png",

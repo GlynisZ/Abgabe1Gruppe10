@@ -1,0 +1,114 @@
+// Copyright (C) 2020 - present Alexander Mader, Matthias Treise and Glynis Zolk, Hochschule Karlsruhe
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+= Entwicklerhandbuch
+Alexander Mader <maal1046@HS-Karlsruhe.de>
+:doctype: book
+:toc: left
+:sectanchors:
+:sectlinks:
+:sectnums:
+:source-highlighter: coderay
+:icons: font
+// :kroki-server-url: https://kroki.io
+
+// https://github.com/asciidoctor/asciidoctorj
+// https://github.com/asciidoctor/asciidoctor-diagram
+// http://de.plantuml.com/classes.html
+// http://de.plantuml.com/component.html
+// https://github.com/odrotbohm/asciidoctor-plantuml
+
+IMPORTANT: Copyright (C) 2020 - present Alexander Mader, Matthias Treise and Glynis Zolk, Hochschule Karlsruhe +
+           Free use of this software is granted under the terms of the
+           GNU General Public License (GPL) v3. +
+           For the full text of the license, see the http://www.gnu.org/licenses/gpl-3.0.html[license] file.
+
+== Der Applikationsserver
+
+=== Der Applikationsserver im Überblick
+
+Dieser Server implementiert ein Anwendungslogik zum Speichern, Verändern und Abrufen von allen Daten, die eine Disco oder die GEMA im Kontext von musikalischen Alben benötigt beispielhaft.
+Der Applikationsserver wurde mittels GraphQL in Typescript implementiert und erlaubt den Zugriff über eine REST-Schnittstelle mit Token-System zur Verbesserung der Autorisierungslogik.
+Dabei greift die Anwedung auf Teile von MEAN zurück. Node.js als Laufzeitumgebung und Express als dazugehöriges Framework.
+Als persistente Datenbank wird MongoDB verwendet, wobei die IDs für zu speichernde Entitys als UUIDs in der Anwendungslogik generiert werden.
+Auf graphische Elemente wird verzichtet, darum findet Angular keine Anwendung.
+Es wird ein Docker File breit gestellt welches es ermöglicht den Server einfach zu einem Docker Image zu packen.
+Die Test werden mittels Jenkins verwaltet und können über eine Jenkins Server automatisiert durchlaufen.
+
+.Use Cases
+[plantuml,use-cases,svg]
+----
+include::use-cases.puml[]
+----
+
+Die abgedeckten Use-Cases sind verteilt auf zwei Anwender.
+Ein normaler User kann nach Alben suchen und diese herunterladen.
+Ein Admin kann dies auch, hat aber zusätzlich die Möglichkeit neu Alben zu erstellen, Alben zu löschen oder zu verändern und die Alben selbst hochzuladen.
+
+.Komponentendiagramm
+[plantuml,komponenten,svg]
+----
+include::komponenten.puml[]
+----
+
+=== Die REST-Schnittstelle
+
+Die REST-Schnittstelle ist implementiert in HTTP/2. Neben dem Login stellt die Schnittstelle die klassischen fünf Funktionen bereit.
+Mittels GET können alle Daten zu einem Song gelesen werden. Mittels POST kann ein neues Song angelegt werden.
+Mittels PUT und PATCH können die gespeicherten Daten zu Alben verändert werden und schließlich bei Bedarf mittels DELETE gelöscht werden.
+Des Weiteren besteht die Möglichkeit mittels REST Files wie MP3 oder MP4 hoch oder runter zu laden.
+
+.Handler für die REST-Schnittstelle
+[plantuml,SongHandler,svg]
+----
+include::SongHandler.puml[]
+----
+
+=== Der Anwendungskern
+
+Betrachtet wird die Anwendungslogik von der Seite des Clients aus.
+Der Client greift durch jede Funktionalität welche in der REST-Schnittstelle implementiert ist über einen Router in Express auf Funktionen in Express zu welchen einen beliebigen Request an die zum Request passende Handler Klasse weiterleitet. der Anwendungskern ist hier geteilt in einen Teil zum Verarbeiten von "normalen" Requests und einen Teil zum Verarbeiten von Requests in Verbindung mit dem File Up- oder Download.
+Die jeweilige Handler-Klasse übergibt den Request der zugehörigen Serviceklasse.
+Der Anwendungskern hat Zugriffsmöglichkeiten auf Funktionalitäten, welche sich in zwei Kategorien teilen lassen.
+Zum einen Mailversenden mittels eines Mailservers, welcher über den Nodemailer adressiert wird und zum anderen den Datenbankserver, welcher in Mongo implementiert ist. Dazu greift der Anwendungskern auf Funktionalitäten aus Mongoose und der MongoDB Native Drivers zurück.
+Die Anwendung ist asynchron implementiert und erlaubt somit den Zugriff durch mehrere Clients gleichzeitig. 
+
+.Anwendungskern mit Mongoose
+[plantuml,SongService,svg]
+----
+include::SongService.puml[]
+----
+
+=== Interface für Entities und das Mongoose-Model
+
+In die Entity Song sind neben den Standardfeldern ID (_id), Version (__v), createdAt und updatedAt auch Felder passend zur Logik eine eines Songes implementiert. Zum einen Name und Interpret als die beiden wichtigsten Felder.
+Dazu kommen noch Label, Lauflänge und Produzent, für zusätzliche Informationen und Funktionalitäten und Differenzierbarkeit.
+Die resultirenden Funktionen werden werden über ein Moongose Model für die datenbank umgesetzt.
+
+.Entity, Model und Schema
+[plantuml,Song,svg]
+----
+include::Song.puml[]
+----
+
+== Programmierrichtlinien für TypeScript und JavaScript
+
+Für die Programmierung mit *TypeScript* und *JavaScript* wird folgende
+Styleguides empfehlenswert:
+
+[horizontal]
+_Microsoft_:: https://github.com/Microsoft/TypeScript/wiki/Coding-guidelines
+_Angular_:: https://angular.io/docs/ts/latest/guide/style-guide.html
+_React_:: https://github.com/airbnb/javascript/tree/master/react
