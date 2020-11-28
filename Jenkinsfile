@@ -84,6 +84,7 @@ pipeline {
 
                 sh 'node --version'
                 sh 'npm --version'
+                sh 'npm install asciidoctor-kroki'
 
                 script {
                     if (!fileExists("${env.WORKSPACE}/package.json")) {
