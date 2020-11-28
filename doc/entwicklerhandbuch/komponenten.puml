@@ -1,0 +1,68 @@
+@startuml Komponenten
+
+skinparam componentStyle uml2
+
+left to right direction
+
+actor RESTClient
+
+node "Funktionen mit Express" {
+  boundary Router
+  [Handler Functions]
+}
+
+node "Klassen / objektorientiert" {
+  [AlbumHandler]
+  [AlbumFileHandler]
+
+  [AlbumService]
+  [AlbumFileService]
+}
+
+[sendMail()] as sendMail
+
+entity AlbumModel
+
+cloud {
+    [Mongoose]
+}
+
+cloud {
+    [MongDB\nNative Driver]
+}
+
+cloud {
+    [nodemailer]
+}
+
+database "acme (MongoDB)" {
+    [Collection Album]
+    [GridFS]
+}
+
+node {
+    [Mailserver]
+}
+
+
+RESTClient ~~> [Router]
+[Router] ..> [Handler Functions]
+[Handler Functions] ..> [AlbumHandler]
+[Handler Functions] ..> [AlbumFileHandler]
+
+[AlbumHandler] --> [AlbumService]
+[AlbumFileHandler] --> [AlbumFileService]
+[AlbumService] ..> [AlbumModel]
+[AlbumFileService] ..> [AlbumModel]
+
+[AlbumModel] ~~> [Mongoose]
+[AlbumFileService] ~~> [MongDB\nNative Driver]
+[sendMail] ~~> [nodemailer]
+[Mongoose] ~~> [Collection Album]
+[MongDB\nNative Driver] ~~> [GridFS]
+
+[AlbumService] --> [sendMail]
+[nodemailer] ~~> [Mailserver]
+
+footer (c) Alexander Mader, Matthias Treiste, Glynis Zolk
+@enduml

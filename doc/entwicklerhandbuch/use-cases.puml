@@ -1,0 +1,26 @@
+@startuml Use Cases
+
+left to right direction
+skinparam packageStyle rect
+skinparam componentStyle uml2
+
+actor Kunde
+actor Admin
+
+rectangle kunde {
+    Kunde --> (Album suchen)
+    Kunde --> (Song herunterladen)
+    Kunde --> (Album herunterladen)
+    Admin --> (Album suchen)
+    Admin --> (Album anlegen)
+    Admin --> (Album ändern)
+    Admin --> (Album löschen)
+    Admin --> (Album hochladen)
+    Admin --> (Album herunterladen)
+    Admin --> (Song hochladen)
+    Admin --> (Song herunterladen)
+}
+
+footer (c) Alexander Mader, Matthias Treiste, Glynis Zolk
+
+@enduml
