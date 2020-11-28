@@ -1,0 +1,60 @@
+@startuml Anwendungskern
+
+!pragma useNewPackage
+skinparam classAttributeIconSize 2
+skinparam componentStyle uml2
+
+package mongoose {
+  class Schema
+
+  class "model()" as model
+  hide model circle
+}
+
+package song.entity {
+  class "validateSong()" as validateSong
+  hide validateSong circle
+
+  class SongModel
+  hide SongModel circle
+
+  SongModel ..> Schema
+  SongModel ..> model
+  SongModel ..> validateSong
+
+  SongData ..> Interpret
+  SongData ..> Label
+
+  enum Interpret {
+    TRIVIUM
+    FIVEFINGERDEATHPUNCH
+	  ZUGEZOGENMASKULIN
+  	DENDEMANN
+  }
+
+  enum Label {
+    SONY_MUSIC
+    ROADRUNNER_RECORDS
+	  BETTERNOISE_MUSIC
+	  UNIVERSAL_MUSIC
+  }
+
+  interface SongData <<entity>> {
+    + _id?: string
+    + __v?: number
+    + createdAt?: number
+    + updatedAt?: number
+    + titel: string
+    + label: Label
+    + produzent: string
+    + interpret: Interpret
+    + lauflaenge: number
+    + erscheinungsdatum: string
+  }
+}
+
+hide empty members
+
+footer (c) Alexander Mader, Matthias Treise, Glynis Zolk
+
+@enduml
