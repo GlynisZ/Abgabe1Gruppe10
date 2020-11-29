@@ -2,113 +2,113 @@
 :revealjs_slideNumber: true
 :sectnums:
 
-/*
- * Copyright (C) 2020 - present Alexander, Matthias, Glynis
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright (C) 2020 - present Juergen Zimmermann, Hochschule Karlsruhe
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // https://asciidoctor.org/docs/asciidoctor-revealjs
 
-= Beispiel mit MEAN, REST, GraphQL, Mongoose, JWT und Jest
+= Abgabe 1, Praktische Umsetzung des Übungsstoffs
 
-Alexander, Matthias, Glynis
+Alexander Mader - Matthias Treise - Glynis Zolk
 
 == Gliederung
 
-* Node
-* Express und REST
-* GraphQL
-* Mongoose
-* JWT
-* Jest usw.
-
-== Node
-
-* Infrastruktur
-* Entwicklungsumgebung
-* Programmierung
+* Projektplanung
+* Zeiterfassung
+* REST-Schnittstelle
+* GraphQL-Schnittstelle
+* Visualisierung
+* Codeanalyse
+* DB-Zugriff
+* Security
+* Integrationstests
+* Git
+* Docker
+* Heroku
+* Jenkins
 * Dokumentation
+* Foliensatz
 
-=== Infrastruktur
+== Projektplanung
 
-* package.json
-* node_modules
-* npm
-* nodemon
-* ts-node
-* Heroku und Buildpack
-* Jenkins und Docker
+* Project Professional
 
-=== Entwicklungsumgebung
+== Zeiterfassung
 
-* VS Code
-* ESLint und SonarQube
+* Excelsheet
+
+== REST-Schnittstelle
+
+* ETags
+* Location-Header
+* HATEOAS mit Lesen und Schreiben
+* Validierung
+
+
+== GraphQL-Schnittstelle
+
+* Schnittstelle mit Lesen und Schreiben
+
+== Visualisierung
+
+* Request
+* Response
+
+== Codeanalyse
+
+* ESLint
 * Prettier
-* RESTclient, auch für GraphQL
+* SonarQube
 
-=== Programmierung
+== DB-Zugriff
 
-* Server einschl. Listener
-* ES 2015+
-* TypeScript
+* Atlas
+* Visualisierung persistenter Daten
 
-=== Dokumentation
+== Security
 
-* AsciiDoctor mit PlantUML
-* reveal.js
-* _TODO: Jekyll_
+* Visualisierung des Zugriffschutzes
 
-== Express und REST
+== Integrationstest
 
-* Router
-* Handler
+* Test einschl. 400er Fehler
+* Test-Coverage
 
-== GraphQL und Apollo Server
+== Git
 
-* typeDefs und gql
-* resolver
+* Github
+* https://github.com/GlynisZ/Abgabe1Gruppe10
 
-== Mongoose
+== Docker
 
-* Pattern _Active Record_
-* Document
-* JSON
-* GridFS
+* Image
+* Container
 
-== JWT
+== Heroku
 
-* Private und Public Key
-* Header
-* Payload
-* Signature
+* Deployment
 
-=== Header
+== Jenkins
 
-* alg
-* typ
+* ohne Tests
 
-=== Payload
+== Dokumentation
 
-* iat
-* exp
-* iss
+* AsciiDoctor
+* PlantUML
 
-== Jest usw.
+== Foliensatz
 
-* Jest
-* ts-jest
-* Chai
-* fetch
-* Istanbul
+* revealjs
